@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% extends 'home.html' %}
+{% block body_block %}
+
+<div class="container div1">
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+
+            <div class="card">
+
+                <div class="card-body">
+                    <h5 class="card-title">@{{post.post_owner}} <span class="card-subtitle mb-2 text-muted">{{post.date}}</span>
+                    </h5>
+                    <p class="card-text">{{post.text_content}}</p>
+                    <form method="post" action="{%url 'like' post.id%}">
+                        {% csrf_token %}
+                        {%if liked %}
+                        <button style="background-color:transparent;border:none;" type="submit" name="post_id" value="{{post.id}}" class=""><i
+                                class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i></button>
+                        {%else%}
+                        <button style="background-color:transparent;border:none;" type="submit" name="post_id" value="{{post.id}}" class=""><i
+                                class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i></button>
+
+
+                        {% endif %}
+                        {% if post.like_count > 0 %} {{post.like_count}} liked this. {% endif %}
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="col-2"></div>
+
+</div>
+
+</div>
+
+{% endblock %}

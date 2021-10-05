@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{%extends 'homepage.html'%}
+
+{%block body_block%}
+<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <h3 style="text-align:center;">Update</h3>
+            <form action="" method="post">
+                {%csrf_token%}
+                {{form.as_p}}
+                <input class="btn btn-success" type="submit" value="Update">
+            </form>
+
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+{% endblock %}

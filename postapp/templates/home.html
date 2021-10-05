@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Title</title>
+    <!-- CSS only -->
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="{%static 'css/styles.css' %}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{%url 'homepage' %}">POSTAPP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{%url 'homepage' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'createpost' %}">Create Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'logout' %}">Logout</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+
+{%block body_block%}
+
+
+
+<div style="text-align:center;">
+    {% if posts.has_previous %}
+    <a style="text-decoration:none;" href="?page=1"><<</a>
+    <a style="text-decoration:none;" href="?page={{posts.previous_page_number}}"><<</a>
+    {% endif %}
+    {% for num in posts.paginator.page_range %}
+    {% if posts.number == num %}
+    <strong>{{num}}</strong>
+    {% else %}
+    {{num}}
+    {% endif %}
+    {% endfor %}
+    {% if posts.has_next %}
+    <a style="text-decoration:none;" href="?page={{posts.next_page_number}}">>></a>
+    <a style="text-decoration:none;" href="?page={{posts.paginator.num_pages}}">>></a>
+    {% endif %}
+</div>
+<div class="div1">
+    {% for post in posts %}
+    <div class="container">
+
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <h5 class="card-title">@{{post.post_owner}} <span class="card-subtitle mb-2 text-muted">{{post.date}}</span>
+                        </h5>
+                        <p class="card-text">{{post.text_content}}</p>
+                        <a class="btn btn-primary" href="{%url 'viewpost' post.id %}">View Post</a>
+
+                        <!--    {{post.like_count}} liked this.-->
+                        <!--    <a href="{%url 'like' post.id %}">Like</a>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-2"></div>
+
+</div>
+
+</div>
+{% endfor %}
+</div>
+{% endblock %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+{% block javascript %}
+{% endblock javascript %}
+
+</body>
+</html>
